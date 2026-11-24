@@ -41,11 +41,17 @@ def validate(line: str) -> str:
     return text
 
 
+def headroom(line: str) -> int:
+    """Characters left under the brief's 140-character cap."""
+    return MAX_CHARS - len(line.strip())
+
+
 def main() -> None:
     line = validate(ADVICE)
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(line + "\n", encoding="utf-8")
     print(f"wrote {len(line)} characters to {OUTPUT_PATH}")
+    print(f"{headroom(line)} characters of headroom under the {MAX_CHARS} cap")
     print(line)
 
 
